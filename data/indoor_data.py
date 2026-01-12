@@ -161,3 +161,43 @@ class IndoorTestDataset(Dataset):
     
     def __len__(self):
         return len(self.dataset)
+
+    def benchmark_recall(self, recall):
+        splits = {}
+        for data_dict, rr in zip(self.dataset, recall):
+            scene = data_dict['points1'].split('/')[-3]
+            if scene not in splits.keys():
+                splits[scene] = []
+            splits[scene].append(rr)
+        
+        recall = []
+        for k,v in splits.items():
+            recall.append(np.array(v,dtype=np.float64).mean())
+        
+        return np.array(recall).mean()
+    
+    def benchmark(self, recall, rte, rre):
+        splits = {}
+        for data_dict, rr, te, re in zip(self.dataset, recall, rte, rre):
+            scene = data_dict['points1'].split('/')[-3]
+            if scene not in splits.keys():
+                splits[scene] = {"RR":[], "TE":[], "RE":[]}
+            splits[scene]["RR"].append(rr)
+            if rr:
+                splits[scene]["TE"].append(te)
+                splits[scene]["RE"].append(re)
+        
+        recall = []
+        rot_err = []
+        trans_err = []
+        for k,v in splits.items():
+            recall.append(np.array(v["RR"],dtype=np.float64).mean())
+            if len(v["TE"]) > 0:
+                trans_err.append(np.median(np.array(v["TE"],dtype=np.float64)))
+            if len(v["RE"]) > 0:
+                rot_err.append(np.median(np.array(v["RE"],dtype=np.float64)))
+        
+        recall = np.array(recall).mean()
+        trans_err = np.array(trans_err).mean() if len(trans_err) > 0 else 0.
+        rot_err = np.array(rot_err).mean() if len(rot_err) > 0 else 0.
+        return recall, trans_err, rot_err
