@@ -1,6 +1,6 @@
 ## CASTv2: Consistency-Aware Spot-Guided Transformer for Accurate and Versatile Point Cloud Registration
 
-Official PyTorch implementation of the paper ''*Consistency-Aware Spot-Guided Transformer for Accurate and Versatile Point Cloud Registration*'' accepted by TPAMI 2026, which is the improved version of [''*A Consistency-Aware Spot-Guided Transformer for Versatile and Hierarchical Point Cloud Registration*''](https://arxiv.org/abs/2410.10295) accepted by NeurIPS 2024 as poster.
+Official PyTorch implementation of the paper [''*Consistency-Aware Spot-Guided Transformer for Accurate and Versatile Point Cloud Registration*''](https://ieeexplore.ieee.org/document/11353038/) accepted by TPAMI 2026, which is the improved version of [''*A Consistency-Aware Spot-Guided Transformer for Versatile and Hierarchical Point Cloud Registration*''](https://arxiv.org/abs/2410.10295) accepted by NeurIPS 2024 as poster.
 
 ### 1. Introduction
 
